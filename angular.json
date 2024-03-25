@@ -133,11 +133,10 @@
 			"prefix": "app",
 			"architect": {
 				"build": {
-					"builder": "@angular-devkit/build-angular:application",
+					"builder": "ngx-build-plus:browser",
 					"options": {
 						"outputPath": "dist/mf-payment",
 						"index": "projects/mf-payment/src/index.html",
-						"browser": "projects/mf-payment/src/main.ts",
 						"polyfills": [
 							"zone.js"
 						],
@@ -150,7 +149,10 @@
 						"styles": [
 							"projects/mf-payment/src/styles.scss"
 						],
-						"scripts": []
+						"scripts": [],
+						"main": "projects/mf-payment/src/main.ts",
+						"extraWebpackConfig": "projects/mf-payment/webpack.config.js",
+						"commonChunk": false
 					},
 					"configurations": {
 						"production": {
@@ -166,7 +168,8 @@
 									"maximumError": "4kb"
 								}
 							],
-							"outputHashing": "all"
+							"outputHashing": "all",
+							"extraWebpackConfig": "projects/mf-payment/webpack.prod.config.js"
 						},
 						"development": {
 							"optimization": false,
@@ -177,21 +180,28 @@
 					"defaultConfiguration": "production"
 				},
 				"serve": {
-					"builder": "@angular-devkit/build-angular:dev-server",
+					"builder": "ngx-build-plus:dev-server",
 					"configurations": {
 						"production": {
-							"buildTarget": "mf-payment:build:production"
+							"buildTarget": "mf-payment:build:production",
+							"extraWebpackConfig": "projects/mf-payment/webpack.prod.config.js"
 						},
 						"development": {
 							"buildTarget": "mf-payment:build:development"
 						}
 					},
-					"defaultConfiguration": "development"
+					"defaultConfiguration": "development",
+					"options": {
+						"port": 4202,
+						"publicHost": "http://localhost:4202",
+						"extraWebpackConfig": "projects/mf-payment/webpack.config.js"
+					}
 				},
 				"extract-i18n": {
-					"builder": "@angular-devkit/build-angular:extract-i18n",
+					"builder": "ngx-build-plus:extract-i18n",
 					"options": {
-						"buildTarget": "mf-payment:build"
+						"buildTarget": "mf-payment:build",
+						"extraWebpackConfig": "projects/mf-payment/webpack.config.js"
 					}
 				},
 				"test": {
