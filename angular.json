@@ -234,11 +234,10 @@
 			"prefix": "app",
 			"architect": {
 				"build": {
-					"builder": "@angular-devkit/build-angular:application",
+					"builder": "ngx-build-plus:browser",
 					"options": {
 						"outputPath": "dist/mf-shopping",
 						"index": "projects/mf-shopping/src/index.html",
-						"browser": "projects/mf-shopping/src/main.ts",
 						"polyfills": [
 							"zone.js"
 						],
@@ -251,7 +250,10 @@
 						"styles": [
 							"projects/mf-shopping/src/styles.scss"
 						],
-						"scripts": []
+						"scripts": [],
+						"main": "projects/mf-shopping/src/main.ts",
+						"extraWebpackConfig": "projects/mf-shopping/webpack.config.js",
+						"commonChunk": false
 					},
 					"configurations": {
 						"production": {
@@ -267,7 +269,8 @@
 									"maximumError": "4kb"
 								}
 							],
-							"outputHashing": "all"
+							"outputHashing": "all",
+							"extraWebpackConfig": "projects/mf-shopping/webpack.prod.config.js"
 						},
 						"development": {
 							"optimization": false,
@@ -278,21 +281,28 @@
 					"defaultConfiguration": "production"
 				},
 				"serve": {
-					"builder": "@angular-devkit/build-angular:dev-server",
+					"builder": "ngx-build-plus:dev-server",
 					"configurations": {
 						"production": {
-							"buildTarget": "mf-shopping:build:production"
+							"buildTarget": "mf-shopping:build:production",
+							"extraWebpackConfig": "projects/mf-shopping/webpack.prod.config.js"
 						},
 						"development": {
 							"buildTarget": "mf-shopping:build:development"
 						}
 					},
-					"defaultConfiguration": "development"
+					"defaultConfiguration": "development",
+					"options": {
+						"port": 4201,
+						"publicHost": "http://localhost:4201",
+						"extraWebpackConfig": "projects/mf-shopping/webpack.config.js"
+					}
 				},
 				"extract-i18n": {
-					"builder": "@angular-devkit/build-angular:extract-i18n",
+					"builder": "ngx-build-plus:extract-i18n",
 					"options": {
-						"buildTarget": "mf-shopping:build"
+						"buildTarget": "mf-shopping:build",
+						"extraWebpackConfig": "projects/mf-shopping/webpack.config.js"
 					}
 				},
 				"test": {
