@@ -2,14 +2,15 @@ const { shareAll, withModuleFederationPlugin } = require('@angular-architects/mo
 
 module.exports = withModuleFederationPlugin({
 
-  name: 'mf-shopping',
+  name: 'mfShopping',
 
   exposes: {
-    './Component': './projects/mf-shopping/src/app/app.component.ts',
+    './ProductsModule': './projects/mf-shopping/src/app/products/products.module.ts',
   },
 
   shared: {
     ...shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' }),
   },
 
+  sharedMappings: ["@commons-lib"],
 });

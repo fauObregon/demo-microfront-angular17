@@ -2,9 +2,9 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "commons-lib": [
-        "./dist/commons-lib"
-      ]
+      "@commons-lib": [
+        "./projects/commons-lib/src/public-api.ts"
+      ],
     },
     "outDir": "./dist/out-tsc",
     "strict": true,
